@@ -16,18 +16,18 @@ module Yabeda
     ].freeze
 
     Yabeda.configure do
-      group :http
+      group :http_external
 
       counter :request_total,
               comment: 'A counter of the total number of external HTTP \
                          requests.',
-              tags: %i[host port method]
+              tags: %i[host port method query]
       counter :response_total,
               comment: 'A counter of the total number of external HTTP \
                          responses.',
-              tags: %i[host port method status]
+              tags: %i[host port method query status]
 
-      histogram :response_duration, tags: %i[host port method status],
+      histogram :response_duration, tags: %i[host port method query status],
                                     unit: :milliseconds,
                                     buckets: LONG_RUNNING_REQUEST_BUCKETS,
                                     comment: "A histogram of the response \

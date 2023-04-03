@@ -12,17 +12,17 @@ RSpec.describe Yabeda::HttpRequests do
     end
 
     it 'holds the proper data' do
-      expect(Yabeda.http_request_total.values).to(
-        eq({ host: 'sushi.com', method: 'GET', port: 80 } => 1)
+      expect(Yabeda.http_external_request_total.values).to(
+        eq({ host: 'sushi.com', method: 'GET', :query=>"/nigiri/sake.json", port: 80} => 1)
       )
-      expect(Yabeda.http_response_total.values.keys.first).to(
+      expect(Yabeda.http_external_response_total.values.keys.first).to(
         include({
                   host: 'sushi.com', method: 'GET', port: 80,
-                  status: 301
+                  status: 308
                 })
       )
-      expect(Yabeda.http_response_duration.values.keys.first).to(
-        eq(host: 'sushi.com', port: 80, method: 'GET', status: 301)
+      expect(Yabeda.http_external_response_duration.values.keys.first).to(
+        eq(host: 'sushi.com', port: 80, method: 'GET', :query=>"/nigiri/sake.json", status: 308)
       )
     end
   end
